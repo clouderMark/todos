@@ -2,7 +2,15 @@ import {MouseEvent} from 'react';
 import {Box, Button, Card, CardContent, IconButton, Typography} from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {addTodo, changeStatusTodo, removeTodo, selectTodo} from '../redux/todoListSlice';
+import {
+  addTodo,
+  changeItemPlace,
+  changeStatusTodo,
+  removeTodo,
+  selectTodo,
+  setDraggindFalse,
+  setDraggindTrue,
+} from '../redux/todoListSlice';
 import {selectTodoForm, setItem} from '../redux/todoFormSlice';
 import {showToast} from '../redux/toastSlice';
 
@@ -45,11 +53,39 @@ const TodoItem = (props: IProps) => {
     }
   };
 
+  const handleDragStart = () => {
+    if (todo) {
+      dispatch(setDraggindTrue(todo.id));
+    }
+  };
+
+  const handleDragEnd = () => {
+    if (todo) {
+      dispatch(setDraggindFalse(todo.id));
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dispatch(setDraggindFalse(todo!.id));
+    dispatch(changeItemPlace(todo!.id));
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
+
   return (
     <>
       {todo ? (
-        <Card sx={[todo.completed ? {boxShadow: '0.5px 1px 1px 0.5px tomato'} : {}, {mb: 1}]} onClick={handleClick}>
-          <CardContent sx={{display: 'flex', justifyContent: 'space-between'}}>
+        <Card
+          draggable
+          sx={[todo.completed ? {boxShadow: '0.5px 1px 1px 0.5px tomato'} : {}, {mb: 1}]}
+          onClick={handleClick}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          <CardContent sx={[todo.draggind ? {opacity: 0} : {}, {display: 'flex', justifyContent: 'space-between'}]}>
             <Box>
               <Typography>{todo.message}</Typography>
             </Box>
