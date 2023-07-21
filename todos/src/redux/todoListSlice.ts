@@ -1,15 +1,9 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import type {RootState} from './store';
-// import {ITodo} from '../types/types';
+import {ITodo} from '../types/types';
 
 interface IInitialState {
-  todos: {
-    message: string;
-    id: string;
-    completed: boolean;
-    draggind: boolean;
-    hash: string[];
-  }[];
+  todos: ITodo[];
 }
 
 const initialState: IInitialState = {

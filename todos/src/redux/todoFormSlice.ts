@@ -6,6 +6,8 @@ const initialState: ITodo = {
   message: '',
   id: '',
   completed: false,
+  draggind: false,
+  hash: [],
 };
 
 export const todoFormSlice = createSlice({
