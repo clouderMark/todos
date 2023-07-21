@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import type {RootState} from './store';
-import {ITodo} from '../types/types';
+// import {ITodo} from '../types/types';
 
 interface IInitialState {
   todos: {
@@ -8,6 +8,7 @@ interface IInitialState {
     id: string;
     completed: boolean;
     draggind: boolean;
+    hash: string[];
   }[];
 }
 
@@ -19,7 +20,15 @@ export const todoListSlice = createSlice({
   name: 'todoList',
   initialState,
   reducers: {
-    addTodo: (state, action: PayloadAction<ITodo>) => {
+    addTodo: (
+      state,
+      action: PayloadAction<{
+        message: string;
+        id: string;
+        completed: boolean;
+        hash: string[];
+      }>,
+    ) => {
       state.todos.push({...action.payload, draggind: false});
     },
     removeTodo: (state, action: PayloadAction<string>) => {

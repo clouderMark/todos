@@ -26,7 +26,7 @@ const TodoItem = (props: IProps) => {
   const handleClick = () => {
     if (todo) {
       if (id) {
-        dispatch(addTodo({id, message, completed}));
+        dispatch(addTodo({id, message, completed, hash: message.split('#').splice(1)}));
       }
 
       dispatch(setItem({...todo}));
@@ -85,11 +85,16 @@ const TodoItem = (props: IProps) => {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          <CardContent sx={[todo.draggind ? {opacity: 0} : {}, {display: 'flex', justifyContent: 'space-between'}]}>
-            <Box>
+          <CardContent sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <Box sx={{width: '87%'}}>
+              <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
+                {todo.hash.map((el) => (
+                  <Typography sx={{mr: 1, color: 'blue'}}>#{el}</Typography>
+                ))}
+              </Box>
               <Typography>{todo.message}</Typography>
             </Box>
-            <Box>
+            <Box sx={{width: '12%'}}>
               <Button
                 onClick={handleChange}
                 variant="outlined"

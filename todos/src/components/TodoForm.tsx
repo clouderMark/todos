@@ -15,10 +15,14 @@ const TodoForm = () => {
     const trimedMessage = message.trim();
 
     if (trimedMessage) {
+      const hash = trimedMessage.split('#').splice(1);
+
+      console.log(hash);
+
       if (id) {
-        dispatch(addTodo({message, id, completed}));
+        dispatch(addTodo({message, id, completed, hash}));
       } else {
-        dispatch(addTodo({message, id: uuid(), completed: false}));
+        dispatch(addTodo({message, id: uuid(), completed: false, hash}));
       }
     }
 
