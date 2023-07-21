@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import {EPath} from '../enums/EPath';
 import NotFound from '../views/NotFound';
+import Todolist from '../views/Todolist';
 
 enum ERoute {
   Path = 'path',
@@ -14,6 +15,7 @@ interface IRoute {
 
 const publicRoutes: IRoute[] = [
   {[ERoute.Path]: EPath.NotFound, [ERoute.Component]: NotFound},
+  {[ERoute.Path]: EPath.TodoList, [ERoute.Component]: Todolist},
 ];
 
 const AppRouter = () => (
