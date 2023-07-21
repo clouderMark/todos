@@ -88,8 +88,8 @@ const TodoItem = (props: IProps) => {
           <CardContent sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Box sx={{width: '87%'}}>
               <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                {todo.hash.map((el) => (
-                  <Typography sx={{mr: 1, color: 'blue'}}>#{el}</Typography>
+                {todo.hash.map((el, i) => (
+                  <Typography sx={{mr: 1, color: 'blue'}} key={i}>#{el}</Typography>
                 ))}
               </Box>
               <Typography>{todo.message}</Typography>

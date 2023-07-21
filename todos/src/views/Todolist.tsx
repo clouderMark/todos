@@ -3,28 +3,17 @@ import {Box, Container} from '@mui/material';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
 import SortBy from '../components/SortBy';
-import {useAppDispatch} from '../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {setNames} from '../redux/sortBySlice';
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+import {selectTodo} from '../redux/todoListSlice';
 
 const Todolist = () => {
   const dispatch = useAppDispatch();
+  const {todos} = useAppSelector(selectTodo);
 
   useEffect(() => {
-    dispatch(setNames(names));
-  }, []);
+    dispatch(setNames(Array.from(new Set(todos.reduce((acc: string[], cur) => [...acc, ...cur.hash], [])))));
+  }, [todos]);
 
   return (
     <Container maxWidth={false}>
