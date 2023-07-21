@@ -9,6 +9,7 @@ import {sortBySlice} from './sortBySlice';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['sortBy'],
 };
 
 export const rootReducer = combineReducers({
