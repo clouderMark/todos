@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {addTodo, changeStatusTodo, removeTodo, selectTodo} from '../redux/todoListSlice';
 import {selectTodoForm, setItem} from '../redux/todoFormSlice';
+import {showToast} from '../redux/toastSlice';
 
 interface IProps {
   id: string;
@@ -28,7 +29,12 @@ const TodoItem = (props: IProps) => {
   const deleteClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (todo) {
-      dispatch(removeTodo(todo.id));
+      if (todo.completed) {
+        dispatch(removeTodo(todo.id));
+        dispatch(showToast({message: 'Задача успешно удалена', statusCode: 200}));
+      } else {
+        dispatch(showToast({message: 'Сперва завершите задачу', statusCode: 400}));
+      }
     }
   };
 
