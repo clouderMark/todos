@@ -17,8 +17,6 @@ const TodoForm = () => {
     if (trimedMessage) {
       const hash = trimedMessage.split('#').splice(1);
 
-      console.log(hash);
-
       if (id) {
         dispatch(addTodo({message, id, completed, hash}));
       } else {
