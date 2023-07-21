@@ -14,7 +14,7 @@ const TodoList = () => {
         .filter(({hash}) => !(query.every((el) => hash.indexOf(el))))
         .map((todo) => (
           <TodoItem key={todo.id} id={todo.id} />
-        )) : todos.map((todo) => <TodoItem key={todo.id} id={todo.id} />)}
+        )) : todos.length ? todos.map((todo) => <TodoItem key={todo.id} id={todo.id} />) : 'Список пуст'}
     </Box>
   );
 };
